@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+
+/*
+ * Design tokens. These generate real Tailwind utilities automatically:
+ * --color-brand      -> bg-brand, text-brand, border-brand, hover:bg-brand, etc.
+ * --color-brand-dark -> bg-brand-dark (button pressed state)
+ * --color-brand-focus-> border-brand-focus (input focus border)
+ * --color-input-border -> border-input-border (input default border)
+ * --color-ink        -> text-ink (dark heading/body text)
+ * Change a value here once, every component using that class picks it up.
+ */
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-brand: #0b5d3b;
+  --color-brand-dark: #08462c;
+  --color-brand-focus: #128c58;
+  --color-input-border: #e4e8ed;
+  --color-ink: #0f1115;
+}
