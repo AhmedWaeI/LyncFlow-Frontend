@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as authApi from "../api/authApi";
 import type { ApiError, LoginPayload } from "../types/auth";
 
 export function useLogin() {
-  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -13,7 +11,9 @@ export function useLogin() {
     setError(null);
     try {
       await authApi.login(payload);
-      navigate("/"); 
+      // The landing page belongs to the shell, so cross the zone boundary
+      // with a full document navigation instead of React Router.
+      window.location.assign("/");
     } catch (err) {
       setError(err as ApiError);
     } finally {
