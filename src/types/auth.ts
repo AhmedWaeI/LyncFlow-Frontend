@@ -15,11 +15,12 @@ export type AuthErrorCode =
   | "AUTH_CURRENT_PASSWORD_INCORRECT"
   | "AUTH_RATE_LIMITED"
   | "NETWORK_ERROR"
-  | "EMAIL_ALREADY_IN_USE"
   | "PASSWORD_POLICY_VIOLATION"
   | "AUTH_PASSWORD_RESET_RATE_LIMITED"
   | "AUTH_CHANGE_PASSWORD_RATE_LIMITED"
   | "AUTH_ACTIVATION_RATE_LIMITED"
+  | "AUTH_EMAIL_ALREADY_REGISTERED"
+  | "VALIDATION_ERROR"
 
 
 
@@ -51,10 +52,10 @@ export interface SignupPayload {
   email: string;
   company: string;
   password: string;
-  role: SignupRole;
+  accountType: SignupRole;
 }
 
-export type SignupRole = "REAL_ESTATE_DEVELOPER" | "BROKERAGE_COMPANY" | "SALES_AGENT";
+export type SignupRole = "real_estate_developer" | "brokerage_company" | "sales_agent";
 
 export interface ForgotPasswordPayload {
   email: string;
@@ -80,8 +81,8 @@ export interface ActivationDetails {
 }
 export interface CompleteActivationPayload {
   token: string;
-  password: string;
-  confirmPassword: string;
-  termsAccepted: boolean;
-  privacyPolicyAccepted: boolean;
+  password?: string;
+  confirmPassword?: string;
+  termsAccepted?: true;
+  privacyPolicyAccepted?: true;
 }

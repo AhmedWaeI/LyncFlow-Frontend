@@ -87,7 +87,7 @@ export const authErrorPresentation: Record<AuthErrorCode, ErrorPresentation> = {
     message: "Check your connection and try again.",
   },
 
-  EMAIL_ALREADY_IN_USE: {
+  AUTH_EMAIL_ALREADY_REGISTERED: {
     variant: "error",
     title: "Email already in use",
     message: "An account already exists for this email address. Try signing in instead.",
@@ -118,4 +118,9 @@ export const authErrorPresentation: Record<AuthErrorCode, ErrorPresentation> = {
     title: "Too many requests",
     message: "You have made too many requests in a short period of time. Please wait and try again later.",
   },
+  VALIDATION_ERROR:{
+    variant: "error",
+    title: "Validation Error",
+    message: "There was a validation error. Please check your input and try again.",
+  }
 };

@@ -18,8 +18,8 @@ export default function SignupForm() {
         setCompany,
         password,
         setPassword,
-        role,
-        setRole,
+        accountType,
+        setAccountType,
         submit,
         isSubmitting,
         error,
@@ -32,7 +32,7 @@ export default function SignupForm() {
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (!isValidEmail(email)) return;
-        submit({ role, email, password, company, fullName });
+        submit({ accountType, email, password, company, fullName });
     }
 
     return (
@@ -41,7 +41,7 @@ export default function SignupForm() {
                 <p className="text-[#A3ABB8] font-sans font-normal leading-5">I am</p>
                 <label className="flex items-center">
                     <span
-                        className={`relative mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${role === "REAL_ESTATE_DEVELOPER"
+                        className={`relative mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${accountType === "real_estate_developer"
                             ? "bg-brand"
                             : "bg-white"
                             }`}
@@ -50,13 +50,13 @@ export default function SignupForm() {
                             className="absolute inset-0 cursor-pointer opacity-0"
                             type="radio"
                             name="role"
-                            value="REAL_ESTATE_DEVELOPER"
-                            checked={role === "REAL_ESTATE_DEVELOPER"}
-                            onChange={(e) => setRole(e.target.value as SignupRole)}
+                            value="real_estate_developer"
+                            checked={accountType === "real_estate_developer"}
+                            onChange={(e) => setAccountType(e.target.value as SignupRole)}
                         />
 
                         <span
-                            className={`h-2.5 w-2.5 rounded-full ${role === "REAL_ESTATE_DEVELOPER"
+                            className={`h-2.5 w-2.5 rounded-full ${accountType === "real_estate_developer"
                                 ? "bg-amber-50"
                                 : "bg-transparent"
                                 }`}
@@ -69,7 +69,7 @@ export default function SignupForm() {
 
                 <label className="flex items-center">
                     <span
-                        className={`mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${role === "BROKERAGE_COMPANY"
+                        className={`mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${accountType === "brokerage_company"
                             ? "bg-brand"
                             : "bg-white"
                             }`}
@@ -78,9 +78,9 @@ export default function SignupForm() {
                             className="peer sr-only"
                             type="radio"
                             name="role"
-                            value="BROKERAGE_COMPANY"
-                            checked={role === "BROKERAGE_COMPANY"}
-                            onChange={(e) => setRole(e.target.value as SignupRole)}
+                            value="brokerage_company"
+                            checked={accountType === "brokerage_company"}
+                            onChange={(e) => setAccountType(e.target.value as SignupRole)}
                         />
 
                         <span className="h-2.5 w-2.5 rounded-full bg-transparent peer-checked:bg-amber-50" />
@@ -91,7 +91,7 @@ export default function SignupForm() {
 
                 <label className="flex items-center">
                     <span
-                        className={`mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${role === "SALES_AGENT"
+                        className={`mr-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-input-border ${accountType === "sales_agent"
                             ? "bg-brand"
                             : "bg-white"
                             }`}
@@ -100,9 +100,9 @@ export default function SignupForm() {
                             className="peer sr-only"
                             type="radio"
                             name="role"
-                            value="SALES_AGENT"
-                            checked={role === "SALES_AGENT"}
-                            onChange={(e) => setRole(e.target.value as SignupRole)}
+                            value="sales_agent"
+                            checked={accountType === "sales_agent"}
+                            onChange={(e) => setAccountType(e.target.value as SignupRole)}
                         />
 
                         <span className="h-2.5 w-2.5 rounded-full bg-transparent peer-checked:bg-amber-50" />

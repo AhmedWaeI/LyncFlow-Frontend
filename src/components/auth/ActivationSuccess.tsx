@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { CheckCircle2 } from "lucide-react";
+import Success from "../../assets/success.svg";
 import PrimaryButton from "../common/PrimaryButton";
 
 export default function ActivationSuccess() {
@@ -7,10 +7,9 @@ export default function ActivationSuccess() {
 
   return (
     <div className="text-center">
-      <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand/10">
-        <CheckCircle2 size={20} className="text-brand" />
+        <div className=" flex justify-center mb-4">
+          <img src={Success} className="w-15" />
       </div>
-
       <h1 className="mb-2 text-2xl font-semibold text-ink sm:text-3xl">Account activated</h1>
       <p className="mb-8 text-sm text-gray-500 sm:text-base">Your account is ready. You can now sign in to LynkFlow.</p>
 

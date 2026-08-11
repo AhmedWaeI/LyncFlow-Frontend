@@ -12,7 +12,7 @@ export function useSignup() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<SignupRole>("REAL_ESTATE_DEVELOPER");
+  const [accountType, setAccountType] = useState<SignupRole>("real_estate_developer");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -44,8 +44,8 @@ export function useSignup() {
     setCompany,
     password,
     setPassword,
-    role,
-    setRole,
+    accountType,
+    setAccountType,
     submit,
     isSubmitting,
     error,

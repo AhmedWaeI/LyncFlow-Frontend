@@ -7,8 +7,8 @@ import type {
   LoginPayload,
   LoginResult,
   ResetPasswordPayload,
+  SignupRole,
 } from "../types/auth";
-import { isPasswordValid } from "../constants/passwordPolicy";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -97,6 +97,13 @@ export async function resetPassword(payload: ResetPasswordPayload): Promise<void
   });
 }
 
+export async function signup(payload: { email: string; password: string, fullName: string, accountType: SignupRole, company: string }): Promise<void> {
+  await request<void>("/api/v1/auth/signup", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function validateActivation(token: string): Promise<ActivationDetails> {
   return request<ActivationDetails>("/api/v1/auth/activation/validate", {
     method: "POST",
@@ -111,6 +118,7 @@ export async function completeActivation(payload: CompleteActivationPayload): Pr
   });
 }
 
+
 /**
  * ---------------------------------------------------------------------
  * STILL MOCKED - no backend endpoint for self-serve signup exists (your
@@ -118,20 +126,14 @@ export async function completeActivation(payload: CompleteActivationPayload): Pr
  * Kept exactly as you had it so nothing currently depending on it breaks.
  * ---------------------------------------------------------------------
  */
-const MOCK_DELAY_MS = 700;
+// const MOCK_DELAY_MS = 700;
 
-function wait(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// function wait(ms: number) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
-function mockApiError(code: AuthErrorCode, message?: string): never {
-  const error: ApiError = { code, message };
-  throw error;
-}
+// function mockApiError(code: AuthErrorCode, message?: string): never {
+//   const error: ApiError = { code, message };
+//   throw error;
+// }
 
-export async function signup(payload: { email: string; password: string }): Promise<void> {
-  await wait(MOCK_DELAY_MS);
-
-  if (payload.email === "taken@test.com") mockApiError("EMAIL_ALREADY_IN_USE");
-  if (!isPasswordValid(payload.password)) mockApiError("PASSWORD_POLICY_VIOLATION");
-}
