@@ -10,15 +10,23 @@ interface ResetPasswordErrorProps {
 
 export default function ResetPasswordError({ error }: ResetPasswordErrorProps) {
   const navigate = useNavigate();
-  const presentation = authErrorPresentation[error.code];
 
   return (
     <>
       <h1 className="mb-4 text-2xl font-semibold text-ink sm:text-3xl">Reset password</h1>
 
       <div className="space-y-4">
-        <Banner variant={presentation.variant} title={presentation.title} message={error.message ?? presentation.message} />
-
+        {error && (
+          <Banner
+            variant={authErrorPresentation[error.code]?.variant ?? "error"}
+            title={authErrorPresentation[error.code]?.title ?? "Something went wrong"}
+            message={
+              error.message ??
+              authErrorPresentation[error.code]?.message ??
+              "Please try again."
+            }
+          />
+        )}
         <PrimaryButton type="button" onClick={() => navigate("/forgot-password")}>
           Request a new Link
         </PrimaryButton>

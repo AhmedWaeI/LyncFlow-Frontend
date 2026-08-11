@@ -9,8 +9,9 @@ import { authErrorPresentation } from "../../constants/errorMessages";
 import { isPasswordValid } from "../../constants/passwordPolicy";
 import type { ApiError } from "../../types/auth";
 
+
 interface ResetPasswordFormProps {
-  onSubmit: (password: string) => void;
+  onSubmit: (payload: { newPassword: string; confirmPassword: string }) => void;
   isSubmitting: boolean;
   error: ApiError | null;
 }
@@ -24,7 +25,7 @@ export default function ResetPasswordForm({ onSubmit, isSubmitting, error }: Res
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (canSubmit) onSubmit(password);
+    if (canSubmit) onSubmit({ newPassword: password, confirmPassword });
   }
 
   return (
@@ -33,13 +34,7 @@ export default function ResetPasswordForm({ onSubmit, isSubmitting, error }: Res
       <p className="mb-8 text-sm text-gray-500 sm:text-base">Choose a strong password for best security.</p>
 
       <form className="space-y-4" onSubmit={handleSubmit} noValidate>
-        {error && (
-          <Banner
-            variant={authErrorPresentation[error.code].variant}
-            title={authErrorPresentation[error.code].title}
-            message={error.message ?? authErrorPresentation[error.code].message}
-          />
-        )}
+
 
         <TextInput
           type="password"
@@ -58,7 +53,17 @@ export default function ResetPasswordForm({ onSubmit, isSubmitting, error }: Res
           onChange={(e) => setConfirmPassword(e.target.value)}
           error={!passwordsMatch ? "Passwords do not match." : undefined}
         />
-
+        {error && (
+          <Banner
+            variant={authErrorPresentation[error.code]?.variant ?? "error"}
+            title={authErrorPresentation[error.code]?.title ?? "Something went wrong"}
+            message={
+              error.message ??
+              authErrorPresentation[error.code]?.message ??
+              "Please try again."
+            }
+          />
+        )}
         <div>
           <p className="mb-2 text-sm text-gray-500">Your new password must include:</p>
           <PasswordChecklist password={password} />

@@ -25,8 +25,6 @@ export default function LoginForm() {
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit} >
-
-
       <TextInput
         type="email"
         name="email"
@@ -54,9 +52,13 @@ export default function LoginForm() {
       </div>
       {error && (
         <Banner
-          variant={authErrorPresentation[error.code].variant}
-          title={authErrorPresentation[error.code].title}
-          message={error.message ?? authErrorPresentation[error.code].message}
+          variant={authErrorPresentation[error.code]?.variant ?? "error"}
+          title={authErrorPresentation[error.code]?.title ?? "Something went wrong"}
+          message={
+            error.message ??
+            authErrorPresentation[error.code]?.message ??
+            "Please try again."
+          }
         />
       )}
 

@@ -148,9 +148,13 @@ export default function SignupForm() {
 
             {error && (
                 <Banner
-                    variant={authErrorPresentation[error.code].variant}
-                    title={authErrorPresentation[error.code].title}
-                    message={error.message ?? authErrorPresentation[error.code].message}
+                    variant={authErrorPresentation[error.code]?.variant ?? "error"}
+                    title={authErrorPresentation[error.code]?.title ?? "Something went wrong"}
+                    message={
+                        error.message ??
+                        authErrorPresentation[error.code]?.message ??
+                        "Please try again."
+                    }
                 />
             )}
             <div>

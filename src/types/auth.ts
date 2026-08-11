@@ -1,33 +1,51 @@
-// Every error state the Figma frames show. Keeping this as a union (rather
-// than a raw string) means TypeScript will error if you reference a code
-// that doesn't exist, and errorMessages.ts below is forced to handle all of them.
 export type AuthErrorCode =
-  | "INVALID_CREDENTIALS"
+  | "AUTH_INVALID_CREDENTIALS"
+  | "AUTH_ACCOUNT_LOCKED"
+  | "AUTH_ACCOUNT_SUSPENDED"
+  | "AUTH_ACCOUNT_NOT_ACTIVATED"
+  | "AUTH_ACCOUNT_INACTIVE"
+  | "AUTH_ACTIVATION_TOKEN_INVALID"
+  | "AUTH_ACTIVATION_TOKEN_EXPIRED"
+  | "AUTH_ACCOUNT_ALREADY_ACTIVE"
+  | "AUTH_PASSWORD_RESET_TOKEN_INVALID"
+  | "AUTH_PASSWORD_RESET_TOKEN_EXPIRED"
+  | "AUTH_PASSWORD_POLICY_VIOLATION"
+  | "AUTH_PASSWORD_UNCHANGED"
+  | "AUTH_SESSION_EXPIRED"
+  | "AUTH_CURRENT_PASSWORD_INCORRECT"
+  | "AUTH_RATE_LIMITED"
+  | "NETWORK_ERROR"
   | "EMAIL_ALREADY_IN_USE"
-  | "ACCOUNT_LOCKED"
-  | "ACCOUNT_SUSPENDED"
-  | "SESSION_EXPIRED"
-  | "RESET_LINK_EXPIRED"
-  | "RESET_LINK_INVALID"
-  | "MULTIPLE_RESET_REQUESTS"
   | "PASSWORD_POLICY_VIOLATION"
-  | "PASSWORD_SAME_AS_CURRENT"
-  | "RESET_SESSION_EXPIRED";
+  | "AUTH_PASSWORD_RESET_RATE_LIMITED"
+  | "AUTH_CHANGE_PASSWORD_RATE_LIMITED"
+  | "AUTH_ACTIVATION_RATE_LIMITED"
 
-// The shape every api/authApi.ts function throws on failure. `message` is
-// optional — the backend can override the default copy from
-// errorMessages.ts with something more specific, but doesn't have to.
+
+
 export interface ApiError {
   code: AuthErrorCode;
   message?: string;
-}
+    details?: string[];
 
+}
+export interface AuthUser {
+  id: string;
+  email: string;
+  fullName?: string | null;
+  [key: string]: unknown;
+}
 export interface LoginPayload {
   email: string;
   password: string;
   rememberMe: boolean;
 }
-
+export interface LoginResult {
+  user: AuthUser;
+  session: {
+    expiresAt: string;
+  };
+}
 export interface SignupPayload {
   fullName: string;
   email: string;
@@ -44,5 +62,26 @@ export interface ForgotPasswordPayload {
 
 export interface ResetPasswordPayload {
   token: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface ActivationDetails {
+  account: {
+    organizationName: string | null;
+    fullName: string | null;
+    email: string;
+  };
+  agreements: {
+    termsVersion: string;
+    privacyPolicyVersion: string;
+  };
+  expiresAt: string;
+}
+export interface CompleteActivationPayload {
+  token: string;
   password: string;
+  confirmPassword: string;
+  termsAccepted: boolean;
+  privacyPolicyAccepted: boolean;
 }

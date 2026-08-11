@@ -10,8 +10,7 @@ export function useForgotPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
-  // event is optional so the same function works for the form's onSubmit
-  // and for a plain "Resend Link" button click.
+
   async function submit(event?: FormEvent<HTMLFormElement>) {
     event?.preventDefault();
     setIsSubmitting(true);

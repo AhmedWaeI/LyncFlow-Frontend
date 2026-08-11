@@ -10,6 +10,7 @@ export default function PasswordChecklist({ password }: PasswordChecklistProps) 
     <ul className="space-y-1.5">
       {passwordRules.map((rule) => {
         const passed = rule.test(password);
+        console.log(`Password rule "${rule.label}" passed: ${passed}`);
         return (
           <li key={rule.id} className="flex items-center gap-2 text-sm">
             <span
