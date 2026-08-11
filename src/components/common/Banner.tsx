@@ -35,8 +35,8 @@ const variantStyles: Record<BannerVariant, { container: string; icon: string; Ic
 export default function Banner({ variant, title, message, details }: BannerProps) {
   const { container, icon, sidebar } = variantStyles[variant];
 
-  let Icon: typeof AlertCircle = title === "Account Locked" ? LockKeyhole : title === "Invalid email address or password." ?
-    variantStyles[variant].Icon : PauseCircleIcon;
+  const Icon : typeof AlertCircle = title === "Account Locked" ? LockKeyhole : title ==="Invalid email address or password."?
+   variantStyles[variant].Icon: PauseCircleIcon;
 
   return (
     <div className={`flex flex-row  rounded-lg border overflow-hidden mt-8   ${container}`}>
