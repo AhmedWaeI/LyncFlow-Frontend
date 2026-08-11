@@ -22,7 +22,6 @@ interface ApiEnvelope<T> {
 async function throwApiError(res: Response): Promise<never> {
   const body = await res.json().catch(() => ({}));
 
-  console.error("API error response body:", body);
 
   const errorBody = body.error ?? {};
 
@@ -37,23 +36,19 @@ async function throwApiError(res: Response): Promise<never> {
     message: errorBody.message,
     details,
   };
-  console.error("API error:", error);
 
   throw error;
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  console.log("api base url = ",API_BASE_URL);
   let res: Response;
   try {
-    console.log("requesting = ",`${API_BASE_URL}${path}`);
-    console.log("payload = ",init?.body);
+
     res = await fetch(`${API_BASE_URL}${path}`, {
       credentials: "include",
       headers: { "Content-Type": "application/json", ...init?.headers },
       ...init,
     });
-    console.log("responsee = ",res.ok);
   } catch {
     
     const error: ApiError = {
